@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">MirrorAgent icon</title>
+  <desc id="desc">Two mirrored panels form an M around a glowing agent spark.</desc>
+  <defs>
+    <linearGradient id="bg" x1="54" y1="36" x2="458" y2="480" gradientUnits="userSpaceOnUse"><stop stop-color="#12243c"/><stop offset="1" stop-color="#070d19"/></linearGradient>
+    <linearGradient id="cyan" x1="108" y1="113" x2="382" y2="405" gradientUnits="userSpaceOnUse"><stop stop-color="#8bf1ff"/><stop offset=".42" stop-color="#22c7e6"/><stop offset="1" stop-color="#4568ff"/></linearGradient>
+    <linearGradient id="violet" x1="408" y1="97" x2="122" y2="411" gradientUnits="userSpaceOnUse"><stop stop-color="#c4a5ff"/><stop offset=".48" stop-color="#8e5bff"/><stop offset="1" stop-color="#4d31bf"/></linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(256 252) rotate(90) scale(128)"><stop stop-color="#72edff" stop-opacity=".42"/><stop offset="1" stop-color="#72edff" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#02050b" flood-opacity=".62"/></filter>
+    <filter id="soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <path d="M108 94h296c18 0 32 14 32 32v260c0 18-14 32-32 32H108c-18 0-32-14-32-32V126c0-18 14-32 32-32Z" fill="#0b1628" stroke="#29425e" stroke-width="3"/>
+  <path d="M256 115v274" stroke="#26435e" stroke-width="2" stroke-dasharray="5 13" opacity=".72"/>
+  <circle cx="256" cy="252" r="128" fill="url(#glow)" filter="url(#soft)"/>
+  <g filter="url(#shadow)">
+    <path d="M125 146h62l69 79 69-79h62L284 287v102h-56V287L125 146Z" fill="url(#cyan)"/>
+    <path d="M387 146h-62l-69 79-69-79h-62l103 141v102h56V287l103-141Z" fill="url(#violet)" opacity=".92"/>
+    <path d="M256 174 279 228l53 24-53 24-23 54-23-54-53-24 53-24 23-54Z" fill="#071321" stroke="#b7f8ff" stroke-width="5"/>
+    <circle cx="256" cy="252" r="10" fill="#efffff"/>
+  </g>
+  <path d="M132 408h248" stroke="#7ee9ff" stroke-opacity=".3" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,70 @@
+package com.mirror.agent.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ReviewPlan {
+
+    @JsonProperty("session_id")
+    private String sessionId;
+
+    @JsonProperty("weak_areas")
+    private List<WeakArea> weakAreas;
+
+    @JsonProperty("study_plan")
+    private List<StudyItem> studyPlan;
+
+    private List<Resource> resources;
+
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class WeakArea {
+        private String topic;
+        private double score;
+        private String priority;  // high/medium/low
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class StudyItem {
+        private String topic;
+        private String objective;
+        private List<String> actions;
+
+        @JsonProperty("time_estimate")
+        private String timeEstimate;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Resource {
+        private String title;
+        private String type;  // article/video/repo/book
+        private String url;
+        private String desc;
+    }
+}
