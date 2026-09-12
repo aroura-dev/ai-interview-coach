@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">MirrorAgent system architecture</title>
+  <desc id="desc">Layered architecture diagram showing client, access, orchestration, interview agents, retrieval and storage.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111f"/>
+      <stop offset="1" stop-color="#10152b"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#142943"/>
+      <stop offset="1" stop-color="#0c1a2d"/>
+    </linearGradient>
+    <linearGradient id="core" x1="700" y1="170" x2="1080" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#164c67"/>
+      <stop offset="1" stop-color="#30245e"/>
+    </linearGradient>
+    <linearGradient id="data" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#143647"/>
+      <stop offset="1" stop-color="#152344"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#8ac6e8" stroke-opacity=".05"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#01040a" flood-opacity=".5"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow-cyan" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="m0 0 10 5-10 5Z" fill="#63e6ff"/></marker>
+    <marker id="arrow-violet" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="m0 0 10 5-10 5Z" fill="#ab8cff"/></marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="m0 0 10 5-10 5Z" fill="#f6c96c"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="28" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="28" fill="url(#grid)"/>
+  <text x="72" y="78" fill="#f5fbff" font-family="Inter,Microsoft YaHei,sans-serif" font-size="34" font-weight="700">MirrorAgent 系统架构</text>
+  <text x="74" y="112" fill="#8fa9bf" font-family="Inter,Microsoft YaHei,sans-serif" font-size="17">面向技术岗位的实时面试编排、混合检索与能力复盘</text>
+  <g font-family="Inter,Microsoft YaHei,sans-serif">
+    <text x="80" y="160" fill="#62e5ff" font-size="14" font-weight="700" letter-spacing="2">CLIENT</text>
+    <text x="390" y="160" fill="#62e5ff" font-size="14" font-weight="700" letter-spacing="2">ACCESS</text>
+    <text x="740" y="160" fill="#b699ff" font-size="14" font-weight="700" letter-spacing="2">ORCHESTRATION</text>
+    <text x="1150" y="160" fill="#f6cf79" font-size="14" font-weight="700" letter-spacing="2">INTERVIEW AGENTS</text>
+  </g>
+  <g filter="url(#shadow)" font-family="Inter,Microsoft YaHei,sans-serif">
+    <rect x="72" y="184" width="250" height="220" rx="22" fill="url(#panel)" stroke="#2d627e" stroke-width="2"/>
+    <circle cx="112" cy="228" r="18" fill="#1e809b"/><path d="M103 228h18M112 219v18" stroke="#d7fbff" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="144" y="236" fill="#f5fbff" font-size="23" font-weight="700">React Web</text>
+    <text x="104" y="278" fill="#9bb8ca" font-size="15">面试工作台</text>
+    <rect x="104" y="312" width="92" height="32" rx="16" fill="#123c4f"/><text x="150" y="333" text-anchor="middle" fill="#7beaff" font-size="13">REST</text>
+    <rect x="204" y="312" width="92" height="32" rx="16" fill="#292553"/><text x="250" y="333" text-anchor="middle" fill="#c5adff" font-size="13">WebSocket</text>
+    <text x="104" y="375" fill="#dcecf5" font-size="14">阶段、问答、评分实时呈现</text>
+
+    <rect x="376" y="184" width="276" height="92" rx="20" fill="url(#panel)" stroke="#2c7794" stroke-width="2"/>
+    <text x="408" y="222" fill="#f5fbff" font-size="20" font-weight="700">Spring Security</text><text x="408" y="249" fill="#8edff0" font-size="15">JWT 登录 / 注册</text>
+    <rect x="376" y="314" width="276" height="92" rx="20" fill="url(#panel)" stroke="#2c7794" stroke-width="2"/>
+    <text x="408" y="352" fill="#f5fbff" font-size="20" font-weight="700">WebSocket Handler</text><text x="408" y="379" fill="#8edff0" font-size="15">阻塞队列 · 实时消息</text>
+
+    <rect x="710" y="220" width="340" height="184" rx="24" fill="url(#core)" stroke="#9d7cff" stroke-width="2"/>
+    <circle cx="760" cy="275" r="22" fill="#7159d9"/><path d="M750 275h20M760 265v20" stroke="#f8f4ff" stroke-width="3" stroke-linecap="round"/>
+    <text x="800" y="278" fill="#ffffff" font-size="22" font-weight="700">StateGraph</text>
+    <text x="754" y="322" fill="#dfd5ff" font-size="16">ChatAgent · Intent Router</text>
+    <rect x="754" y="346" width="222" height="32" rx="16" fill="#3a2d6c"/><text x="865" y="367" text-anchor="middle" fill="#d9ccff" font-size="13">Skill Registry / Agent 状态</text>
+
+    <rect x="1128" y="184" width="392" height="322" rx="24" fill="#151d2d" stroke="#756238" stroke-width="2"/>
+    <rect x="1154" y="210" width="160" height="108" rx="16" fill="#223246" stroke="#3d7590"/><text x="1174" y="246" fill="#b7edfb" font-size="15" font-weight="700">JD Analyzer</text><text x="1174" y="274" fill="#b6c6d2" font-size="13">岗位画像</text><text x="1174" y="296" fill="#b6c6d2" font-size="13">能力拆解</text>
+    <rect x="1334" y="210" width="160" height="108" rx="16" fill="#263047" stroke="#5c65a1"/><text x="1354" y="246" fill="#d7ceff" font-size="15" font-weight="700">Resume Matcher</text><text x="1354" y="274" fill="#bcc2d6" font-size="13">经历映射</text><text x="1354" y="296" fill="#bcc2d6" font-size="13">差距识别</text>
+    <rect x="1154" y="346" width="160" height="108" rx="16" fill="#273642" stroke="#477b83"/><text x="1174" y="382" fill="#baf7ed" font-size="15" font-weight="700">Question Planner</text><text x="1174" y="410" fill="#bdcfce" font-size="13">方向与难度</text><text x="1174" y="432" fill="#bdcfce" font-size="13">动态调度</text>
+    <rect x="1334" y="346" width="160" height="108" rx="16" fill="#3a3029" stroke="#a2834c"/><text x="1354" y="382" fill="#ffe4a3" font-size="15" font-weight="700">Evaluator</text><text x="1354" y="410" fill="#dbc9a4" font-size="13">实时评分</text><text x="1354" y="432" fill="#dbc9a4" font-size="13">追问信号</text>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-width="3">
+    <path d="M322 250H376" stroke="#63e6ff" marker-end="url(#arrow-cyan)"/>
+    <path d="M322 340H376" stroke="#63e6ff" marker-end="url(#arrow-cyan)"/>
+    <path d="M652 230H710" stroke="#ab8cff" marker-end="url(#arrow-violet)"/>
+    <path d="M652 360H710" stroke="#ab8cff" marker-end="url(#arrow-violet)"/>
+    <path d="M1050 270H1128" stroke="#f6c96c" marker-end="url(#arrow-amber)"/>
+    <path d="M1050 350H1128" stroke="#f6c96c" marker-end="url(#arrow-amber)"/>
+  </g>
+  <g filter="url(#shadow)" font-family="Inter,Microsoft YaHei,sans-serif">
+    <rect x="72" y="566" width="1456" height="246" rx="24" fill="url(#data)" stroke="#2d5a78" stroke-width="2"/>
+    <text x="106" y="612" fill="#8cecff" font-size="14" font-weight="700" letter-spacing="2">KNOWLEDGE &amp; MEMORY</text>
+    <text x="106" y="649" fill="#f5fbff" font-size="23" font-weight="700">检索、记忆与复盘基础设施</text>
+    <text x="106" y="680" fill="#9db9c8" font-size="15">让每一次回答都能被检索、衡量，并转化为下一轮训练信号</text>
+    <rect x="106" y="716" width="278" height="60" rx="16" fill="#0c2232" stroke="#2e7892"/><text x="130" y="752" fill="#a9edf9" font-size="16" font-weight="700">Hybrid RAG</text><text x="248" y="752" fill="#b6cbd4" font-size="13">Milvus · BM25 · Reranker</text>
+    <rect x="414" y="716" width="278" height="60" rx="16" fill="#1e2343" stroke="#6256a2"/><text x="438" y="752" fill="#d4c7ff" font-size="16" font-weight="700">Long-term Memory</text><text x="605" y="752" fill="#c1c4d7" font-size="13">薄弱点画像</text>
+    <rect x="722" y="716" width="214" height="60" rx="16" fill="#263746" stroke="#4b7f86"/><text x="829" y="752" text-anchor="middle" fill="#b9f4e9" font-size="16" font-weight="700">Redis</text>
+    <rect x="966" y="716" width="214" height="60" rx="16" fill="#263746" stroke="#4b7f86"/><text x="1073" y="752" text-anchor="middle" fill="#b9f4e9" font-size="16" font-weight="700">MySQL</text>
+    <rect x="1210" y="716" width="282" height="60" rx="16" fill="#3a3029" stroke="#a2834c"/><text x="1234" y="752" fill="#ffe4a3" font-size="16" font-weight="700">Review Planner</text><text x="1396" y="752" fill="#ddcbaa" font-size="13">GitHub 推荐</text>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-width="3" opacity=".9">
+    <path d="M1288 506v60" stroke="#f6c96c" marker-end="url(#arrow-amber)"/>
+    <path d="M1288 626v90" stroke="#f6c96c" marker-end="url(#arrow-amber)"/>
+    <path d="M865 404v130H553v182" stroke="#ab8cff" stroke-dasharray="7 9" marker-end="url(#arrow-violet)"/>
+    <path d="M553 680v36" stroke="#63e6ff" marker-end="url(#arrow-cyan)"/>
+  </g>
+  <text x="1460" y="852" text-anchor="end" fill="#6f899c" font-family="Inter,Microsoft YaHei,sans-serif" font-size="13">MIRRORAGENT / ARCHITECTURE MAP</text>
+</svg>
