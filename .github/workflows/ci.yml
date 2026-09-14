@@ -22,7 +22,7 @@ jobs:
       run:
         working-directory: MirrorAgent-java
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
@@ -40,7 +40,7 @@ jobs:
       run:
         working-directory: MirrorAgent-web
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Set up Node.js 20.19
         uses: actions/setup-node@v5
         with:
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Validate infrastructure Compose
         run: docker compose -f MirrorAgent-java/docker-compose.yml config --quiet
 
@@ -77,7 +77,7 @@ jobs:
           - name: frontend
             context: MirrorAgent-web
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
