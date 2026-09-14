@@ -30,9 +30,11 @@
 
 - CI：`.github/workflows/ci.yml`
 - 后端测试：`cd MirrorAgent-java && mvn -B -ntp test`
-- 前端检查：`cd MirrorAgent-web && npm ci && npm run lint && npm run build`
+- 前端 Vitest：4/4 通过。
+- 前端检查：`cd MirrorAgent-web && npm ci && npm test && npm run lint && npm run build`
 - 基础设施配置：`docker compose -f MirrorAgent-java/docker-compose.yml config --quiet`
-- Docker 镜像：CI 会执行后端镜像构建，验证多阶段 Dockerfile。
+- Docker 镜像：CI 会分别构建后端和前端镜像，验证多阶段 Dockerfile。
+- 完整启动：`docker compose --profile app up -d --build --wait` 会启动基础设施、后端和 Nginx 前端。
 - 健康检查：`/health` 提供存活探针，`/actuator/health` 汇总数据库与 Redis 状态。
 - 离线检索报告：`MirrorAgent-java/data/eval/reports/`。
 

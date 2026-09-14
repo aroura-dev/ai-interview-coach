@@ -33,6 +33,7 @@ MirrorAgent 根据岗位 JD、候选人简历和个人题库，自动完成岗�
 
 - `mvn test`：23/23 通过，0 failures，0 errors。
 - Redis 一致性测试：6/6 通过。
+- 前端 Vitest：4/4 通过。
 - Redis 画像缓存使用 2 小时 TTL；写失败时清理陈旧键且不阻断主流程；miss 后回源 MySQL 并回填。
 - RAG 离线评测：50 条人工标注集 Recall@10=0.7833、Recall@20=0.8567。
 - MRR=1.0 来自当前 50 条小样本，存在过拟合风险，需扩大标注集后复核，不作为主要效果指标。
@@ -215,6 +216,16 @@ npm run dev
 
 浏览器访问 `http://localhost:5173`。Vite 会自动把 `/api` 和 `/ws` 转发到后端。
 
+### 6. 可选：完整 Docker 一键启动
+
+在 `MirrorAgent-java` 目录执行：
+
+```bash
+make app-up
+```
+
+该 profile 会在基础设施就绪后构建并启动后端与前端：前端 `http://localhost:5173`，后端 `http://localhost:9090`，健康检查 `http://localhost:9090/actuator/health`。停止完整环境使用 `make app-down`。
+
 ## 自定义题库
 
 前端支持上传 PDF、DOCX、TXT 和 Markdown 题库。后端会执行：
@@ -276,6 +287,7 @@ mvn test
 
 # 前端
 cd MirrorAgent-web
+npm test
 npm run lint
 npm run build
 ```

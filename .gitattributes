@@ -18,6 +18,8 @@ Makefile text eol=lf
 .dockerignore text eol=lf
 .gitignore text eol=lf
 .gitattributes text eol=lf
+.nvmrc text eol=lf
+nginx.conf text eol=lf
 
 *.bat text eol=crlf
 *.cmd text eol=crlf

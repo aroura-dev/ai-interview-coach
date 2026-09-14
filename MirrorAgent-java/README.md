@@ -225,8 +225,13 @@ make test           # mvn test，运行测试
 make infra-up       # 启动 Milvus + Redis + MySQL
 make infra-down     # 停止基础设施
 make infra-status   # 查看容器状态
+make app-up         # 构建并启动基础设施 + 后端 + 前端
+make app-down       # 停止完整 Docker 环境
+make app-logs       # 查看后端和前端日志
 make docker-build   # 构建后端镜像
 make docker-run     # 以容器方式运行后端（--env-file .env）
+make frontend-test  # 运行前端 Vitest（4 项）
+make frontend-lint  # 运行前端 ESLint
 make clean          # mvn clean
 ```
 

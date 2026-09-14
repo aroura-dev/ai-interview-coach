@@ -33,7 +33,7 @@ jobs:
         run: mvn -B -ntp test
 
   frontend:
-    name: Frontend lint and build
+    name: Frontend tests, lint and build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
@@ -49,6 +49,8 @@ jobs:
           cache-dependency-path: MirrorAgent-web/package-lock.json
       - name: Install dependencies
         run: npm ci
+      - name: Test
+        run: npm test
       - name: Lint
         run: npm run lint
       - name: Build
@@ -63,19 +65,26 @@ jobs:
       - name: Validate infrastructure Compose
         run: docker compose -f MirrorAgent-java/docker-compose.yml config --quiet
 
-  backend-image:
-    name: Backend Docker image
+  container-images:
+    name: ${{ matrix.name }} Docker image
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      matrix:
+        include:
+          - name: backend
+            context: MirrorAgent-java
+          - name: frontend
+            context: MirrorAgent-web
     steps:
       - uses: actions/checkout@v5
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build backend image
+      - name: Build image
         uses: docker/build-push-action@v6
         with:
-          context: MirrorAgent-java
+          context: ${{ matrix.context }}
           push: false
-          tags: mirror-agent-ci:test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: mirror-agent-${{ matrix.name }}:test
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}

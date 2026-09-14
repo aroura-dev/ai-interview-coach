@@ -83,6 +83,7 @@ src/
 ## 常用命令
 
 ```bash
+npm test          # 运行 Vitest 单元测试
 npm run dev       # 启动开发服务器（默认 :5173）
 npm run build     # 生产构建（输出到 dist/）
 npm run preview   # 预览生产构建
