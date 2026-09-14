@@ -11,7 +11,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp -DskipTests package
 
 # ---- Runtime Stage ----
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 
 RUN apk add --no-cache ca-certificates tzdata
 
