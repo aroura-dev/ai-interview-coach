@@ -21,7 +21,7 @@
         <java.version>21</java.version>
         <spring-ai-alibaba.version>1.1.2.0</spring-ai-alibaba.version>
         <milvus-sdk.version>2.4.2</milvus-sdk.version>
-        <jjwt.version>0.12.6</jjwt.version>
+        <jjwt.version>0.13.0</jjwt.version>
     </properties>
 
     <dependencies>
@@ -96,14 +96,14 @@
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.8</version>
         </dependency>
 
         <!-- DOCX Parsing -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.3.0</version>
+            <version>5.5.1</version>
         </dependency>
 
         <!-- Jackson for JSON -->
