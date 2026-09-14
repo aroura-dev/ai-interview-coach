@@ -118,7 +118,7 @@ flowchart TB
 | 基础设施层 | 本地依赖启动、对象存储和向量服务支撑 | Docker Compose、MinIO、etcd |
 | 质量保障 | 单测、离线检索评测、Redis 一致性验证 | JUnit 5、Mockito、GitHub Actions |
 
-详细数据流、Agent 职责和设计取舍见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)。
+详细数据流、Agent 职责和设计取舍见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)，业务接口、事务与测试证据见 [`docs/EVIDENCE.md`](docs/EVIDENCE.md)。
 
 ## 面试流程
 
@@ -171,7 +171,7 @@ MirrorAgent/
 
 - JDK 21
 - Maven 3.9+
-- Node.js 18+
+- Node.js 20.19+
 - Docker Desktop 与 Docker Compose
 - DashScope API Key
 
@@ -192,7 +192,7 @@ JWT_SECRET=replace-with-a-long-random-secret
 ### 3. 启动基础设施
 
 ```bash
-docker compose up -d
+docker compose up -d --wait
 ```
 
 该命令将启动 Milvus、etcd、MinIO、Redis 和 MySQL。
@@ -209,7 +209,7 @@ mvn spring-boot:run
 
 ```bash
 cd ../MirrorAgent-web
-npm install
+npm ci
 npm run dev
 ```
 
@@ -253,7 +253,7 @@ mvn spring-boot:run -Dspring-boot.run.arguments="eval --execute"
 | `RERANK_MODEL` | `gte-rerank-v2` | Cross-Encoder 模型 |
 | `MILVUS_HOST` | `localhost` | Milvus 地址 |
 | `REDIS_HOST` | `localhost` | Redis 地址 |
-| `MYSQL_URL` | 本地 `mirror_agent` | MySQL JDBC URL |
+| `MYSQL_URL` | `localhost:3308/mirror_agent` | MySQL JDBC URL，与 Compose 端口一致 |
 | `JWT_SECRET` | 开发默认值 | JWT 签名密钥，生产环境必须替换 |
 | `GITHUB_TOKEN` | 空 | GitHub 搜索工具 Token，可选 |
 

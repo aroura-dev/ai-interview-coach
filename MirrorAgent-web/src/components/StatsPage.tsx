@@ -230,17 +230,18 @@ export function StatsPage({ onNavigate }: { onNavigate?: (view: 'review') => voi
       if (err.status === 401) { logout(); return }
       setError(err.message || '加载失败')
     }
-  }, [token])
+  }, [token, logout])
 
   useEffect(() => {
-    void load()
+    const timer = window.setTimeout(() => { void load() }, 0)
+    return () => window.clearTimeout(timer)
   }, [load])
 
   const snapshots = data?.snapshots ?? []
   const maxWeak = snapshots.reduce((m, s) => Math.max(m, s.weakPointCount), 1)
   const topicMap = new Map<string, { date: string; score: number }[]>()
   for (const sn of snapshots) {
-    let ws: { topic: string; score: number }[] = []
+    let ws: { topic: string; score: number }[]
     try {
       ws = sn.weakPointsJson ? (JSON.parse(sn.weakPointsJson) as { topic: string; score: number }[]) : []
     } catch {

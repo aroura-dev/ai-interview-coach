@@ -1,41 +1,46 @@
-.PHONY: run build test infra-up infra-down clean package
+.PHONY: run build test package infra-up infra-down infra-status infra-logs clean docker-build docker-run frontend-install frontend-lint frontend-build
 
-# 运行项目
+COMPOSE = docker compose -f docker-compose.yml
+FRONTEND_DIR = ../MirrorAgent-web
+
 run:
 	mvn spring-boot:run
 
-# 编译（跳过测试）
 build:
-	mvn compile
+	mvn -ntp -B compile
 
-# 打包
 package:
-	mvn package -DskipTests
+	mvn -ntp -B package -DskipTests
 
-# 运行测试
 test:
-	mvn test
+	mvn -ntp -B test
 
-# 启动基础设施（Milvus + Redis + MySQL）
 infra-up:
-	docker-compose up -d
+	$(COMPOSE) up -d --wait
 
-# 停止基础设施
 infra-down:
-	docker-compose down
+	$(COMPOSE) down
 
-# 查看基础设施状态
 infra-status:
-	docker-compose ps
+	$(COMPOSE) ps
 
-# Docker 构建
+infra-logs:
+	$(COMPOSE) logs -f milvus redis mysql
+
 docker-build:
 	docker build -t mirror-agent-java .
 
-# Docker 运行
 docker-run:
-	docker run -p 9090:9090 --env-file .env mirror-agent-java
+	docker run --rm -p 9090:9090 --env-file .env mirror-agent-java
 
-# 清理编译产物
+frontend-install:
+	cd $(FRONTEND_DIR) && npm ci
+
+frontend-lint:
+	cd $(FRONTEND_DIR) && npm run lint
+
+frontend-build:
+	cd $(FRONTEND_DIR) && npm run build
+
 clean:
-	mvn clean
+	mvn -ntp -B clean

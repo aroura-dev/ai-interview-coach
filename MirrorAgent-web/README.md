@@ -14,7 +14,7 @@ MirrorAgent 的 Web 前端，基于 React + TypeScript + Vite 构建。通过 We
 
 ## 前置条件
 
-1. **Node.js 18+**
+1. **Node.js 20.19+**
 
 ```bash
 node --version   # 确认已安装
@@ -26,7 +26,7 @@ node --version   # 确认已安装
 
 ```bash
 cd ../MirrorAgent-java
-make infra-up              # 启动 Milvus + Redis + MySQL
+make infra-up              # 启动 Milvus + Redis + MySQL（等待健康）
 mvn spring-boot:run        # 启动后端，监听 :9090
 ```
 
@@ -34,7 +34,7 @@ mvn spring-boot:run        # 启动后端，监听 :9090
 
 ```bash
 # 1. 安装依赖
-npm install
+npm ci
 
 # 2. 启动开发服务器
 npm run dev

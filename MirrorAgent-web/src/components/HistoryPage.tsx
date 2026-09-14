@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { extractReportHeader, ReportHeaderCards } from './ReportSummary'
+import { ReportHeaderCards } from './ReportSummary'
+import { extractReportHeader } from './reportUtils'
 import { RichMarkdown } from './RichMarkdown'
 
 import { fetchHistory, fetchHistoryDetail } from '../api/history'
@@ -69,7 +70,8 @@ export function HistoryPage({ onOpenChat }: HistoryPageProps) {
   }, [token, logout, reloadLocal])
 
   useEffect(() => {
-    void loadList()
+    const timer = window.setTimeout(() => { void loadList() }, 0)
+    return () => window.clearTimeout(timer)
   }, [loadList])
 
   const openDetail = async (sessionId: string) => {

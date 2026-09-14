@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Milvus 向量数据库（standalone 模式）
   etcd:
@@ -75,7 +73,7 @@ services:
   mysql:
     image: docker.m.daocloud.io/library/mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: interview
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-interview}
       MYSQL_DATABASE: mirror_agent
       MYSQL_CHARACTER_SET_SERVER: utf8mb4
       MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
@@ -84,10 +82,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 20s
 
 volumes:
   etcd_data:

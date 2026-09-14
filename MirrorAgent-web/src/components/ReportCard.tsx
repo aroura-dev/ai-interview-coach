@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { extractReportHeader, ReportHeaderCards } from './ReportSummary'
+import { ReportHeaderCards } from './ReportSummary'
+import { extractReportHeader } from './reportUtils'
 import { RichMarkdown } from './RichMarkdown'
 
 export function ReportCard({ content }: { content: string }) {

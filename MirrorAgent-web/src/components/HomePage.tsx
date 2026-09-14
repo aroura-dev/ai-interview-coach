@@ -68,7 +68,11 @@ export function HomePage({ username, onNavigate }: HomePageProps) {
   const [toDelete, setToDelete] = useState<LocalSession | null>(null)
 
   useEffect(() => {
-    setSessions(username ? listLocalSessions(username) : [])
+    // 从 localStorage 同步外部状态，放入异步任务避免同步 effect 级联渲染。
+    const timer = window.setTimeout(() => {
+      setSessions(username ? listLocalSessions(username) : [])
+    }, 0)
+    return () => window.clearTimeout(timer)
   }, [username])
 
   const fmtTime = (t: number) =>

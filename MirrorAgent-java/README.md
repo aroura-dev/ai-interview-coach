@@ -118,7 +118,7 @@ MirrorAgent-java/
 ├── src/main/resources/application.yml   # 应用配置
 ├── data/questions/                      # 内置面试题库（go / mysql / distributed / mq / redis）
 ├── data/eval/                           # RAG 评估数据集与 manifest
-├── docker-compose.yml                   # 基础设施编排（Milvus + Redis + MySQL）
+├── docker compose.yml                   # 基础设施编排（Milvus + Redis + MySQL）
 ├── Dockerfile                           # 后端镜像构建（多阶段）
 ├── Makefile                             # 常用命令
 ├── pom.xml                              # Maven 依赖
@@ -136,7 +136,7 @@ MirrorAgent-java/
 | JDK | **21** | `java -version` | 必须 JDK 21；更高版本（如 24/26）会因 Lombok 注解处理器不兼容导致 `mvn` 编译失败。多 JDK 环境用 `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` 指定 |
 | Maven | 3.9+ | `mvn -v` | 构建后端 |
 | Docker Desktop | 最新 | `docker compose version` | 跑基础设施，确保已启动 |
-| Node.js | 18+ | `node -v` | 跑前端 |
+| Node.js | 20.19+ | `node -v` | 跑前端 |
 | 通义千问 API Key | — | — | 见下方 |
 
 **获取通义千问 API Key**：打开 [DashScope 控制台](https://dashscope.console.aliyun.com/) → 用支付宝/淘宝账号登录 → 「API-KEY 管理」→ 创建新 Key（以 `sk-` 开头）。新用户有免费额度，qwen-plus 足够跑完多次完整面试。
@@ -147,7 +147,7 @@ MirrorAgent-java/
 cp .env.example .env
 ```
 
-编辑 `.env`，**只需填入第一行的 API Key**，其余保持默认（与 `docker-compose.yml` 端口一一对应）：
+编辑 `.env`，**只需填入第一行的 API Key**，其余保持默认（与 `docker compose.yml` 端口一一对应）：
 
 ```bash
 DASHSCOPE_API_KEY=sk-你的真实key
@@ -172,13 +172,13 @@ DASHSCOPE_API_KEY=sk-你的真实key
 ### 第三步：启动基础设施
 
 ```bash
-make infra-up      # = docker-compose up -d，启动 Milvus + Redis + MySQL（含 etcd + minio 共 5 个容器）
+make infra-up      # = docker compose up -d --wait，启动 Milvus + Redis + MySQL（含 etcd + minio 共 5 个容器）
 ```
 
 首次启动需拉取镜像，耐心等 3~5 分钟。查看状态：
 
 ```bash
-make infra-status  # = docker-compose ps
+make infra-status  # = docker compose ps
 ```
 
 应看到 5 个容器全部 `Up (healthy)`。Milvus 启动较慢，若未健康再等 30 秒。
@@ -199,7 +199,7 @@ make run           # = mvn spring-boot:run，启动时自动加载 .env
 
 ```bash
 cd ../MirrorAgent-web
-npm install        # 首次需安装依赖
+npm ci             # 首次需安装依赖
 npm run dev        # 启动后访问 http://localhost:5173
 ```
 
@@ -246,15 +246,15 @@ make clean          # mvn clean
 **Q：启动卡在连接 Milvus，或报 collection 加载超时？**
 Milvus standalone 已知问题：重启后内部节点 ID 变更、旧 collection 元数据未清理导致加载卡住。清空 Milvus 数据卷后重启即可（会清空已上传题库，MySQL / Redis 不受影响）：
 ```bash
-docker-compose down
+docker compose down
 docker volume rm mirror-agent-java_milvus_data
-docker-compose up -d
+docker compose up -d --wait
 ```
 
 **Q：`make infra-up` 后容器一直不 healthy？**
-Milvus 首次启动较慢，等 1~2 分钟。仍不健康看日志：`docker-compose logs milvus` / `docker-compose logs mysql`。
+Milvus 首次启动较慢，等 1~2 分钟。仍不健康看日志：`docker compose logs milvus` / `docker compose logs mysql`。
 
-**Q：端口被占用（3306 / 6379 / 19530）？**
+**Q：端口被占用（3308 / 6379 / 19530）？**
 本地已有同类服务在跑。修改 `docker-compose.yml` 的端口映射，并同步更新 `.env` 中对应地址。
 
 **Q：大模型偶发返回 JSON 解析失败？**
