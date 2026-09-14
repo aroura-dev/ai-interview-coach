@@ -19,8 +19,8 @@ services:
   minio:
     image: docker.m.daocloud.io/minio/minio:RELEASE.2023-03-20T20-16-18Z
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
     ports:
       - "9001:9001"
       - "9000:9000"
@@ -73,8 +73,10 @@ services:
   mysql:
     image: docker.m.daocloud.io/library/mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-interview}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-interview}
       MYSQL_DATABASE: mirror_agent
+      MYSQL_USER: ${MYSQL_APP_USER:-mirror_agent}
+      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD:-mirror_agent}
       MYSQL_CHARACTER_SET_SERVER: utf8mb4
       MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
     ports:

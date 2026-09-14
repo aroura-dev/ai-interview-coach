@@ -164,7 +164,10 @@ DASHSCOPE_API_KEY=sk-你的真实key
 | `EMBEDDING_MODEL` | | `text-embedding-v3` | Embedding 模型 |
 | `MILVUS_HOST` / `MILVUS_PORT` | | `localhost` / `19530` | Milvus 地址 |
 | `REDIS_HOST` / `REDIS_PORT` | | `localhost` / `6379` | Redis 地址 |
-| `MYSQL_URL` / `MYSQL_USERNAME` / `MYSQL_PASSWORD` | | 见 `.env.example` | MySQL 连接 |
+| `MYSQL_URL` | | `jdbc:mysql://localhost:3308/mirror_agent...` | MySQL JDBC URL |
+| `MYSQL_USERNAME` / `MYSQL_PASSWORD` | ✅ | `mirror_agent` | 后端专用数据库账号 |
+| `MYSQL_ROOT_PASSWORD` / `MYSQL_APP_USER` / `MYSQL_APP_PASSWORD` | | `interview` / `mirror_agent` | 容器初始化配置，需与上方账号同步 |
+| `MINIO_ACCESS_KEY` / `MINIO_SECRET_KEY` | | `minioadmin` | Milvus 对象存储凭据 |
 | `JWT_SECRET` | | 内置默认值 | JWT 签名密钥（生产环境务必修改） |
 | `GITHUB_TOKEN` | | 空 | GitHub 搜索工具（可选，提高限额） |
 | `AUTH_ENABLED` | | `true` | 是否开启登录鉴权 |
@@ -189,7 +192,7 @@ make infra-status  # = docker compose ps
 make run           # = mvn spring-boot:run，启动时自动加载 .env
 ```
 
-首次会下载依赖（1~2 分钟）。启动成功后后端监听 `http://localhost:9090`。
+首次会下载依赖（1~2 分钟）。启动成功后后端监听 `http://localhost:9090`，深度健康检查地址为 `http://localhost:9090/actuator/health`。
 
 > **多 JDK 环境**：若默认 `java` 不是 21，先 `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` 再 `make run`，否则 Lombok 注解处理器会因 JDK 版本过高而编译失败。
 

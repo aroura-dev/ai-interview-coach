@@ -34,7 +34,7 @@ public class SecurityConfig {
             }))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/register", "/api/login", "/health", "/ws/**").permitAll()
+                .requestMatchers("/api/register", "/api/login", "/health", "/actuator/health", "/actuator/health/**", "/ws/**").permitAll()
                 .anyRequest().permitAll()
             );
         return http.build();

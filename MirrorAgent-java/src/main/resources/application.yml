@@ -30,9 +30,9 @@ spring:
 
   # MySQL / JPA
   datasource:
-    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/mirror_agent?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:}
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3308/mirror_agent?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
+    username: ${MYSQL_USERNAME:mirror_agent}
+    password: ${MYSQL_PASSWORD:mirror_agent}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -60,3 +60,17 @@ app:
       type: ${RERANKER_TYPE:cross-encoder}
       # cross-encoder 使用的 DashScope 重排模型；gte-rerank-v2 为当前可用版本
       cross-encoder-model: ${RERANK_MODEL:gte-rerank-v2}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+  health:
+    db:
+      enabled: true
+    redis:
+      enabled: true

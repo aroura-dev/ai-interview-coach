@@ -44,7 +44,7 @@ jobs:
       - name: Set up Node.js 20.19
         uses: actions/setup-node@v5
         with:
-          node-version: '20.19'
+          node-version-file: MirrorAgent-web/.nvmrc
           cache: npm
           cache-dependency-path: MirrorAgent-web/package-lock.json
       - name: Install dependencies
@@ -69,5 +69,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build backend image
-        run: docker build -t mirror-agent-ci:test MirrorAgent-java
+        uses: docker/build-push-action@v6
+        with:
+          context: MirrorAgent-java
+          push: false
+          tags: mirror-agent-ci:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

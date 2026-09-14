@@ -203,7 +203,7 @@ docker compose up -d --wait
 mvn spring-boot:run
 ```
 
-后端默认监听 `http://localhost:9090`，健康检查地址为 `http://localhost:9090/health`。
+后端默认监听 `http://localhost:9090`；存活检查为 `http://localhost:9090/health`，包含数据库与 Redis 的深度健康检查为 `http://localhost:9090/actuator/health`。
 
 ### 5. 启动前端
 
@@ -254,13 +254,16 @@ mvn spring-boot:run -Dspring-boot.run.arguments="eval --execute"
 | `MILVUS_HOST` | `localhost` | Milvus 地址 |
 | `REDIS_HOST` | `localhost` | Redis 地址 |
 | `MYSQL_URL` | `localhost:3308/mirror_agent` | MySQL JDBC URL，与 Compose 端口一致 |
+| `MYSQL_USERNAME` / `MYSQL_PASSWORD` | `mirror_agent` | 后端专用 MySQL 应用账号 |
+| `MYSQL_ROOT_PASSWORD` | `interview` | MySQL root 密码，仅容器初始化使用 |
+| `MINIO_ACCESS_KEY` / `MINIO_SECRET_KEY` | `minioadmin` | Milvus 对象存储凭据 |
 | `JWT_SECRET` | 开发默认值 | JWT 签名密钥，生产环境必须替换 |
 | `GITHUB_TOKEN` | 空 | GitHub 搜索工具 Token，可选 |
 
 ## 安全提示
 
 - 不要提交 `.env`、真实 API Key、GitHub Token 或生产数据库密码。
-- 部署前必须替换 JWT、MySQL 和 MinIO 的默认凭据。
+- 部署前必须替换 JWT、MySQL 应用账号、MySQL root 和 MinIO 的默认凭据。
 - 当前 Docker Compose 和跨域配置面向本地开发，公网部署前应限制端口和允许来源。
 - 上传文件和 WebSocket 消息需要在生产环境增加更严格的大小、频率与内容校验。
 

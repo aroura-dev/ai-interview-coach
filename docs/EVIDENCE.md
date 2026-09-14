@@ -33,6 +33,7 @@
 - 前端检查：`cd MirrorAgent-web && npm ci && npm run lint && npm run build`
 - 基础设施配置：`docker compose -f MirrorAgent-java/docker-compose.yml config --quiet`
 - Docker 镜像：CI 会执行后端镜像构建，验证多阶段 Dockerfile。
+- 健康检查：`/health` 提供存活探针，`/actuator/health` 汇总数据库与 Redis 状态。
 - 离线检索报告：`MirrorAgent-java/data/eval/reports/`。
 
 ## 5. 数据边界
